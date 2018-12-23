@@ -1,8 +1,7 @@
 version: '2.0'
 services:
   helloalmere:
-    image: "rj100/helloalmere"
-    ports: "4200:4200"
+    image: "rj100/helloalmere"    
   register_service:
     image: "rj100/register_service"
     environment:
