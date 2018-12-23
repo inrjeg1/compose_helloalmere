@@ -2,11 +2,13 @@ version: '2.0'
 services:
   helloalmere:
     image: "rj100/helloalmere"
-    ports:"4200:4200"
+    ports: "4200:4200"
   register_service:
     image: "rj100/register_service"
     environment:
-      - "SPRING_PROFILES_ACTIVE=prod"   
+      - "SPRING_PROFILES_ACTIVE=prod"
+    depends_on:
+      - postgres   
   # infra
   postgres:
     image: "rj100/postgres"
