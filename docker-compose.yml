@@ -1,0 +1,25 @@
+version: '2.0'
+services:
+  angular_app:
+    image: "rj100/helloalmere"
+  register_service:
+    image: "rj100/register_service"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"   
+  # infra
+  postgres:
+    image: "rj100/postgres"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+  
+  nginx:
+    image: "nginx"
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - register_service     
+    
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./public:/public
