@@ -13,15 +13,19 @@ services:
     image: "rj100/postgres"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-  
-  nginx:
-    image: "nginx"
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - register_service     
-    
+    ports: 
+      - "5432:5432"
+  web:
+    image: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./public:/public
+      - ./mysite.template:/etc/nginx/conf.d/mysite.template
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_HOST=helloalmere.com
+      - NGINX_PORT=80
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+    depends_on:
+      - register_service   
+  
+  
