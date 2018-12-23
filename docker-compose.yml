@@ -1,6 +1,6 @@
 version: '2.0'
 services:
-  angular_app:
+  helloalmerep:
     image: "rj100/helloalmere"
   register_service:
     image: "rj100/register_service"
